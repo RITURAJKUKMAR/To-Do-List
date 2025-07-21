@@ -1,0 +1,67 @@
+{% extends "master.html" %}
+
+{% block menu %}
+<a href="{% url 'LOGIN_Assig:profile' %}">Profile</a>
+<a href="{% url 'LOGIN_Assig:logout' %}">Logout</a>
+{% endblock %}
+
+{% block content %}
+<h1 class="centre-text">Welcome {{ request.session.fullName | upper}}, to your Dashboard. </h1><br>
+
+<div class="box">
+    <div class="left">
+        <form action="{% url 'LOGIN_Assig:saveData' %}" method="post">
+            {% csrf_token %}
+            <input type="text" autofocus name="data" placeholder="Enter Do List">
+            <button type="submit" id="save-data"> <i class="fa-solid fa-arrow-right"></i></button>
+        </form>
+        <ul class="toDoList">
+            {% for toDoList in toDoLists %}
+            <hr>
+            <li>
+                <p onclick="showDetails()" class="listData">
+                    <b>{{toDoList.date}} , </b>
+                    {{toDoList.data}}
+                </p>
+                <div class="btns">
+                    <a href="{% url 'LOGIN_Assig:workDone' %}?workDoneId={{toDoList.toDoListId}}"><i
+                            class="fa-solid fa-circle-check" style="color: #00c227;"></i></a>
+                    <a href="{% url 'LOGIN_Assig:toDoListDelete' %}?toDoListId={{toDoList.toDoListId}}"><i
+                            class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
+                </div>
+            </li>
+            {% endfor %}
+            <hr>
+        </ul>
+    </div>
+    <div class="right">
+        <h2>Assignment</h2>
+        <hr>
+        <div class="details">
+            <b>{{toDoList.date}} , </b>
+            {{toDoList.data}}
+        </div>
+    </div>
+</div>
+<div class="done-Work">
+    <h2 style="text-align: center;margin:5px">Work Done</h2>
+    <ul type="1">
+        {% for workDone in workDones %}
+        <li>
+            ✅ <b>{{workDone.date}} , </b>
+            {{workDone.data}}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<script>
+    let listData = document.querySelectorAll(".listData");
+    listData.forEach((p) => {
+        p.addEventListener('click', () => {
+            document.querySelector(".details").innerHTML = p.innerHTML;
+        });
+    });
+</script>
+
+{% endblock %}

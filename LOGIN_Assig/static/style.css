@@ -1,0 +1,207 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(77, 76, 76);
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.centre-text {
+    text-align: center;
+}
+
+.exit-pro-btn {
+    background-color: var(--main-bg-color);
+    padding: 7px;
+    display: inline-block;
+    border: 1px black solid;
+    margin: 10px;
+    border-radius: 7px;
+}
+
+button {
+    border: 1px black solid;
+    border-radius: 5px;
+    outline: none;
+    padding: 5px;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+header {
+    background-color: rgb(255 255 255 / 11%);
+    color: black;
+    height: 70px;
+    width: 100%;
+    padding: 0 50px;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+
+    .menu {
+        margin-right: 70px;
+        font-size: 18px;
+
+        a {
+            margin: 10px;
+        }
+    }
+
+    .profile-pic-first {
+        /* background-color: rebeccapurple; */
+        position: absolute;
+        right: 20px;
+
+        .profile-first {
+            background-color: black;
+            color: white;
+            height: 50px;
+            width: 50px;
+            align-content: center;
+            text-align: center;
+            font-size: 30px;
+            border: 1.5px white solid;
+            border-radius: 100%;
+        }
+    }
+}
+
+main {
+    padding: 20px 70px;
+}
+
+
+.box {
+    /* background-color: red; */
+    display: flex;
+    justify-content: space-around;
+
+    .left,
+    .right {
+        background-color: black;
+        padding: 5px;
+        border-radius: 10px;
+    }
+
+    .left {
+        /* background-color: red; */
+        width: 40%;
+        text-align: center;
+        height: 300px;
+
+        form {
+            display: flex;
+            background-color: white;
+            border: 1px black solid;
+            border-radius: 5px;
+            height: 40px;
+
+
+            input {
+                outline: none;
+                height: inherit;
+                width: 99%;
+                border: none;
+                padding: 5px;
+            }
+
+            #save-data {
+                height: inherit;
+                margin: auto;
+                padding: auto;
+                border: none;
+                border-radius: 0;
+                font-size: 18px;
+            }
+        }
+
+        .toDoList {
+            background-color: green;
+            margin: 5px 0;
+            padding: 5px;
+            padding-left: 20px;
+            font-size: 18px;
+            text-align: left;
+            border: 2px yellow solid;
+            border-radius: 5px;
+            background-color: rgb(175, 174, 174);
+            height: 240px;
+            overflow-y: scroll;
+            scrollbar-width: none;
+
+            li {
+                padding: 3px;
+
+                p {
+                    display: inline-block;
+                    cursor: pointer;
+                    width: 80%;
+                    overflow: hidden;
+                    height: 20px;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+
+                .btns {
+                    float: right;
+                }
+            }
+
+        }
+    }
+
+    .right {
+        width: 40%;
+        text-align: center;
+        color: white;
+        overflow-y: scroll;
+        scrollbar-width: none;
+
+        .details {
+            background-color: red;
+            border: 1px black solid;
+            border-radius: 5px;
+            background-color: white;
+            color: black;
+            margin: 10px 0;
+            padding: 5px;
+            font-size: 18px;
+            text-align: justify;
+            height: 240px;
+            overflow-y: scroll;
+            scrollbar-width: none;
+        }
+    }
+}
+
+.done-Work {
+    margin: 20px;
+    background-color: gray;
+    border: 1px black solid;
+    border-radius: 5px;
+    height: 250px;
+
+
+    ul {
+        padding: 0 25px;
+        height: 200px;
+        overflow-y: scroll;
+        scrollbar-width: none;
+
+        li {
+            background-color: white;
+            border-radius: 5px;
+            padding: 5px;
+            margin: 10px 0;
+        }
+    }
+}

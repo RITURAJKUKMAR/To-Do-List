@@ -1,0 +1,96 @@
+.login-container {
+    font-family: Arial, sans-serif;
+    margin: 50px auto;
+    background: white;
+    padding: 2rem;
+    width: 350px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+
+    h2 {
+        color: #6a11cb;
+        margin-bottom: 20px;
+    }
+
+    .input-group {
+        text-align: left;
+        margin-bottom: 15px;
+    }
+
+    .input-group label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    input,
+    select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .password-wrapper {
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+
+    .toggle-password {
+        position: absolute;
+        right: 10px;
+        cursor: pointer;
+        font-size: 18px;
+        color: #555;
+    }
+
+    .options {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+
+    .options a {
+        color: #6a11cb;
+        text-decoration: none;
+    }
+
+    .options a:hover {
+        text-decoration: underline;
+    }
+
+    .login-btn {
+        width: 100%;
+        padding: 10px;
+        background: #6a11cb;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .login-btn:hover {
+        background: #2575fc;
+    }
+
+    .register-text {
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
+    .register-text a {
+        color: #2575fc;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .register-text a:hover {
+        text-decoration: underline;
+    }
+}

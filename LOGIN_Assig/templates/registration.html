@@ -1,0 +1,54 @@
+{% extends "master.html" %}
+{% load static %}
+
+{% block menu %}
+<a href="{% url 'LOGIN_Assig:login' %}">Login</a>
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <h2>Create an Account</h2>
+    {% if userStatus == 1 %}
+    <p class="centre-text"> Sorry, email registered, please try different email.</p>
+    {% elif userStatus == 4 %}
+    <p class="centre-text"> Opps!! Password and confirm password are different.</p>
+    {% elif userStatus == 5 %}
+    <p class="centre-text"> Please choose a stronger password. Try a mix of letters(capital and small), numbers and
+        symbols.</p>
+    {% endif %}
+    <form action="{% url 'LOGIN_Assig:registration' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="input-group">
+            <label for="username">UserName</label>
+            <input type="text" name="username" id="username" required placeholder="Enter your UserName">
+        </div>
+        
+        <div class="input-group">
+            <label for="name">FullName</label>
+            <input type="text" name="name" id="name" required placeholder="Enter your FullName">
+        </div>
+
+        <div class="input-group">
+            <label for="password">Password</label>
+            <div class="password-wrapper">
+                <input type="password" name="password" id="password" required placeholder="Enter your password">
+                <span class="toggle-password" onclick="togglePassword()">👁</span>
+            </div>
+        </div>
+
+        <button type="submit" class="login-btn">Submit</button>
+        <p class="login-text">Already have an account? <a href="{% url 'LOGIN_Assig:login' %}">Login here</a></p>
+    </form>
+</div>
+<script>
+    function togglePassword() {
+        let passwordInput = document.getElementById("password");
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+        } else {
+            passwordInput.type = "password";
+        }
+    }
+</script>
+
+{% endblock %}

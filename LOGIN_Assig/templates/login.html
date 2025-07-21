@@ -1,0 +1,94 @@
+{% extends "master.html" %}
+
+{% block menu %}
+<a href="{% url 'LOGIN_Assig:registration' %}">Register</a>
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <h1 class="centre-text">Login Here</h1>
+
+    {% if loginError %}
+    <h4>
+        <p>{{loginTimes}}</p>
+        <p class="centre-text">{{loginError}}</p>
+    </h4>
+    {% endif %}
+    <form action="{% url 'LOGIN_Assig:login' %}" method="post">
+        {% csrf_token %}
+        <div class="input-group">
+            <label for="username">UserName</label>
+            <input type="text" name="username" id="username" minlength="6" maxlength="20" required
+                placeholder="Enter your UserName">
+        </div>
+
+        <div class="input-group">
+            <label for="password">Password</label>
+            <div class="password-wrapper">
+                <input type="password" name="password" minlength="6" maxlength="20" id="password" required
+                    placeholder="Enter your password">
+                <span class="toggle-password" onclick="togglePassword()">👁</span>
+            </div>
+        </div>
+        <p class="centre-text" style="color: red;" id="freez-sms"></p>
+        <p class="centre-text" id="freez"></p>
+
+        {% if loginError %}
+        <a class="centre-text" href="{% url 'LOGIN_Assig:login' %}">Forget Password</a>
+        {% endif %}
+
+        <button type="submit" class="login-btn">Login</button>
+
+        {% if loginTimes >= "5" %}
+        <script>
+            console.log("loginFreez");
+            document.querySelector("#freez-sms").innerText = "⏳ Login is temporarily locked. Try again in 00:30 seconds.";
+            let username = document.querySelector("#username");
+            let password = document.querySelector("#password");
+            let btn = document.querySelector(".login-btn");
+            username.disabled = true;
+            password.disabled = true;
+            btn.disabled = true;
+
+            let min = 0;
+            let sec = 30;
+            let t = setInterval(() => {
+                sec--;
+                if (sec == -1) {
+                    if (min == 0 && sec == -1) {
+                        sec--;
+                        username.disabled = false;
+                        password.disabled = false;
+                        btn.disabled = false;
+                        document.querySelector("#freez-sms").innerText = "";
+                        clearTimeout(t);
+                        sec = 0;
+                        min = 0;
+                    }
+                    else {
+                        min--;
+                        sec = 59;
+                    }
+                }
+                document.querySelector("#freez").innerText = sec;
+                console.log(sec);
+            }, 1000);
+            document.querySelector("#freez").innerText = "";
+        </script>
+        {% endif %}
+
+    </form>
+    <p class="login-text">Don't have an account? <a href="{% url 'LOGIN_Assig:registration' %}">Register</a></p>
+</div>
+<script>
+    function togglePassword() {
+        let passwordInput = document.getElementById("password");
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+        } else {
+            passwordInput.type = "password";
+        }
+    }
+</script>
+
+{% endblock %}
