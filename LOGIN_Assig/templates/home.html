@@ -1,4 +1,5 @@
 {% extends "master.html" %}
+{% load static %}
 
 {% block menu %}
 <a href="{% url 'LOGIN_Assig:profile' %}">Profile</a>
@@ -12,20 +13,33 @@
     <div class="left">
         <form action="{% url 'LOGIN_Assig:saveData' %}" method="post">
             {% csrf_token %}
-            <input type="text" autofocus name="data" placeholder="Enter Do List">
+            <input type="text" id="inputBox" autofocus name="data" placeholder="Enter Do List">
             <button type="submit" id="save-data"> <i class="fa-solid fa-arrow-right"></i></button>
         </form>
         <ul class="toDoList">
             {% for toDoList in toDoLists %}
             <hr>
             <li>
-                <p onclick="showDetails()" class="listData">
-                    <b>{{toDoList.date}} , </b>
+                <p class="listData"><b>{{toDoList.toDoListId}}. </b>
+                    {{toDoList.date}} ,
                     {{toDoList.data}}
                 </p>
                 <div class="btns">
-                    <a href="{% url 'LOGIN_Assig:workDone' %}?workDoneId={{toDoList.toDoListId}}"><i
-                            class="fa-solid fa-circle-check" style="color: #00c227;"></i></a>
+                    <form style="display: none;" action="{% url 'LOGIN_Assig:workDone' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" id="status" autofocus name="toDoListId">
+                        <button type="submit" id="save-status"> <i class="fa-solid fa-arrow-right"></i></button>
+                    </form>
+                    {% if toDoList.status %}
+                    <i class="fa-solid fa-circle-check" style="color: #00c227;"></i>
+                    {% else %}
+                    <a href="{% url 'LOGIN_Assig:workDone' %}?toDoListId={{toDoList.toDoListId}}">☑️</a>
+                    {% endif %}
+                    <form style="display: none;" action="{% url 'LOGIN_Assig:toDoListDelete' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" id="deleteData" autofocus name="toDoListId">
+                        <button type="submit" id="delete-data"> <i class="fa-solid fa-arrow-right"></i></button>
+                    </form>
                     <a href="{% url 'LOGIN_Assig:toDoListDelete' %}?toDoListId={{toDoList.toDoListId}}"><i
                             class="fa-solid fa-trash" style="color: #ff0000;"></i></a>
                 </div>
@@ -35,33 +49,30 @@
         </ul>
     </div>
     <div class="right">
-        <h2>Assignment</h2>
+        <h2>Voice Command</h2>
         <hr>
-        <div class="details">
-            <b>{{toDoList.date}} , </b>
-            {{toDoList.data}}
+        <div class="command-component">
+            <div class="mic-system">
+                <button id="startBtn">
+                    <img id="img" src="{% static 'img/micpic.jpg' %}" alt="micpic">
+                    <video id="vid" src="{% static 'img/micgif.mp4' %}" loop muted autoplay></video>
+                </button>
+                <hr>
+                <h3 id="statusText">Heard :</h3>
+                <hr>
+            </div>
+            <div class="command">
+                (Example) Say :
+                <hr>
+                <ul>
+                    <li>"New Task buy milk" </li>
+                    <li>"Delete task 2" </li>
+                    <li>"Mark Task 1"</li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
-<div class="done-Work">
-    <h2 style="text-align: center;margin:5px">Work Done</h2>
-    <ul type="1">
-        {% for workDone in workDones %}
-        <li>
-            ✅ <b>{{workDone.date}} , </b>
-            {{workDone.data}}
-        </li>
-        {% endfor %}
-    </ul>
-</div>
-
-<script>
-    let listData = document.querySelectorAll(".listData");
-    listData.forEach((p) => {
-        p.addEventListener('click', () => {
-            document.querySelector(".details").innerHTML = p.innerHTML;
-        });
-    });
-</script>
+<script src="{% static 'script.js' %}"></script>
 
 {% endblock %}

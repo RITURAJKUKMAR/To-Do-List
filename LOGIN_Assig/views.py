@@ -49,12 +49,9 @@ def home(request):
     if "username" not in request.session.keys():
         return render(request, "login.html")
     else:
-        toDoLists = ToDoListId.objects.filter(Username=request.session["username"])
-        workDones = WorkDone.objects.filter(Username=request.session["username"])
+        toDoLists = ToDoList.objects.filter(Username=request.session["username"])
         context = {
             "toDoLists": toDoLists,
-            "toDoList": toDoLists.first(),
-            "workDones": workDones,
         }
         return render(request, "home.html", context)
 
@@ -63,7 +60,7 @@ def saveData(request):
     if "username" not in request.session.keys():
         return render(request, "login.html")
     if request.method == "POST":
-        userData = ToDoListId()
+        userData = ToDoList()
         userData.Username = User.objects.get(username=request.session["username"])
         userData.data = request.POST["data"]
         userData.save()
@@ -73,26 +70,48 @@ def saveData(request):
 def toDoListDelete(request):
     if "username" not in request.session.keys():
         return render(request, "login.html")
-    try:
-        toDoList = ToDoListId.objects.get(toDoListId=request.GET["toDoListId"])
-        toDoList.delete()
-    except:
-        pass
+    else:
+        toDoList = 0
+        try:
+            toDoList = ToDoList.objects.filter(
+                toDoListId=request.POST["toDoListId"]
+            ).first()
+        except:
+            try:
+                toDoList = ToDoList.objects.filter(
+                    toDoListId=request.GET["toDoListId"]
+                ).first()
+            except:
+                pass
+        if toDoList:
+            toDoList.delete()
     return home(request)
 
 
 def workDone(request):
     if "username" not in request.session.keys():
         return render(request, "login.html")
-    try:
-        toDoList = ToDoListId.objects.get(toDoListId=request.GET["workDoneId"])
-        workDone = WorkDone()
-        workDone.data = toDoList.data
-        workDone.Username = User.objects.get(username=request.session["username"])
-        workDone.save()
-        toDoList.delete()
-    except:
-        pass
+    else:
+        toDoList = 0
+        try:
+            toDoList = ToDoList.objects.filter(
+                toDoListId=request.POST["toDoListId"]
+            ).first()
+        except:
+            try:
+                toDoList = ToDoList.objects.filter(
+                    toDoListId=request.GET["toDoListId"]
+                ).first()
+            except:
+                pass
+        if toDoList:    
+            doList = ToDoList()
+            doList.toDoListId = toDoList.toDoListId
+            doList.Username = User.objects.get(username=request.session["username"])
+            doList.data = toDoList.data
+            doList.status = True
+            doList.data = doList.data
+            doList.save()
     return home(request)
 
 

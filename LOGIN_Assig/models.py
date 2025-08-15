@@ -11,24 +11,11 @@ class User(models.Model):
         return str(self.username)
 
 
-class UserData(models.Model):
-    UserDataId = models.BigAutoField(primary_key=True, auto_created=True)
-
-
-class ToDoListId(models.Model):
+class ToDoList(models.Model):
     toDoListId = models.BigAutoField(primary_key=True, auto_created=True)
     Username = models.ForeignKey(User, on_delete=models.CASCADE)
     data = models.CharField(null=True, max_length=500)
-    date = models.DateField(auto_now=True)
-
-    def __str__(self):
-        return str(self.Username.username)
-
-
-class WorkDone(models.Model):
-    workDoneId = models.BigAutoField(primary_key=True, auto_created=True)
-    Username = models.ForeignKey(User, on_delete=models.CASCADE)
-    data = models.CharField(null=True, max_length=500)
+    status = models.BooleanField(default=False)
     date = models.DateField(auto_now=True)
 
     def __str__(self):

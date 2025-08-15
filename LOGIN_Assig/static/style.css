@@ -135,20 +135,15 @@ main {
             height: 240px;
             overflow-y: scroll;
             scrollbar-width: none;
+            list-style: none;
 
             li {
                 padding: 3px;
 
                 p {
                     display: inline-block;
-                    cursor: pointer;
                     width: 80%;
-                    overflow: hidden;
-                    height: 20px;
-
-                    &:hover {
-                        text-decoration: underline;
-                    }
+                    min-height: 20px;
                 }
 
                 .btns {
@@ -166,8 +161,7 @@ main {
         overflow-y: scroll;
         scrollbar-width: none;
 
-        .details {
-            background-color: red;
+        .command-component {
             border: 1px black solid;
             border-radius: 5px;
             background-color: white;
@@ -177,31 +171,47 @@ main {
             font-size: 18px;
             text-align: justify;
             height: 240px;
-            overflow-y: scroll;
-            scrollbar-width: none;
-        }
-    }
-}
 
-.done-Work {
-    margin: 20px;
-    background-color: gray;
-    border: 1px black solid;
-    border-radius: 5px;
-    height: 250px;
+            .mic-system {
 
+                #startBtn {
+                    margin: auto auto;
+                    height: 80px;
+                    width: 80px;
+                    border: none;
+                    border-radius: 50%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
 
-    ul {
-        padding: 0 25px;
-        height: 200px;
-        overflow-y: scroll;
-        scrollbar-width: none;
+                    img,
+                    video {
+                        height: inherit;
+                        width: inherit;
+                        border: none;
+                        border-radius: inherit;
+                    }
 
-        li {
-            background-color: white;
-            border-radius: 5px;
-            padding: 5px;
-            margin: 10px 0;
+                    video {
+                        display: none;
+                    }
+                }
+
+                #statusText {
+                    /* background-color: green; */
+                    text-align: center;
+                }
+            }
+
+            .command {
+                /* background-color: red; */
+                margin: 10px auto;
+                width: 160px;
+
+                ul {
+                    margin-top: 5px;
+                }
+            }
         }
     }
 }
